@@ -10,18 +10,16 @@ var app = express();
 app.use(express.static("."));
 
 /**
- * This is an example of a basic node.js script that performs
- * the Client Credentials oAuth2 flow to authenticate against
- * the Spotify Accounts.
- *
- * For more information, read
- * https://developer.spotify.com/web-api/authorization-guide/#client_credentials_flow
+Sorry for how nasty this all looks, pretty much it has to make the api calls on the server side 
+or else it runs into a cors error. I'm not sure if this is the cleanest way to do but it was the 
+only attempt I got to spit out the correct uri. Will not be offended if you guys want to go about
+this differently.
  */
 
 var request = require('request'); // "Request" library
 
-var client_id = '6ba0d68acbb14b11bcc1001e3c4b5dd7'; // Your client id
-var client_secret = 'a022baaccb3640a4a8ce3c5f04d229e9'; // Your secret
+var client_id = '6ba0d68acbb14b11bcc1001e3c4b5dd7'; // our client id
+var client_secret = 'a022baaccb3640a4a8ce3c5f04d229e9'; // our secret
 
 
 //For the default site with no requests
@@ -48,14 +46,15 @@ app.get('/search', function(req, res){
 	    // use the access token to access the Spotify Web API
 	    var token = body.access_token;
 	    var options = {
-	      url: 'https://api.spotify.com/v1/search?q=chon&type=artist&limit=1',
+	      url: 'https://api.spotify.com/v1/search?q=' + req.query.value + '&type=artist&limit=1',
 	      headers: {
 	        'Authorization': 'Bearer ' + token
 	      },
 	      json: true
 	    };
 	    request.get(options, function(error, response, body) {
-	      console.log(body.artists.items[0].uri);
+	    	//all it does now is give the link to the band we want. Can't handle multi word strings yet (need to have plus signs) and will add error handling.
+	    	console.log(body.artists.items[0].uri);
 	    });
 	  }
 	});
