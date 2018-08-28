@@ -54,7 +54,9 @@ app.get('/search', function(req, res){
 	    };
 	    request.get(options, function(error, response, body) {
 	    	//all it does now is give the link to the band we want. Can't handle multi word strings yet (need to have plus signs) and will add error handling.
-	    	console.log(body.artists.items[0].uri);
+	    	uri = body.artists.items[0].id;
+	    	console.log(uri);
+	    	res.send(uri);
 	    });
 	  }
 	});

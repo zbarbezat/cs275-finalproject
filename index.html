@@ -17,10 +17,12 @@
 			{
 				value: document.getElementById("artist").value  
 			},
-			dataType: "html",
+			dataType: "text",
 			
 			success: function(msg) {
-				//alert("worked") 
+				//alert("worked")
+				frame = "<iframe src='https://open.spotify.com/embed/artist/" + msg + "' width='300' height='380' frameborder='0' allowtransparency='true' allow='encrypted-media'></iframe>";
+				document.getElementById("spotifyDiv").innerHTML=frame;
 
 			},
 
@@ -42,4 +44,6 @@
 		</form>
 	</div>
 </body>
+<div id="spotifyDiv">	
+</div>
 </html>
