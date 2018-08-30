@@ -44,9 +44,15 @@ app.get('/search', function(req, res){
 	  if (!error && response.statusCode === 200) {
 
 	    // use the access token to access the Spotify Web API
+	    searchStr = req.query.value;
+	    searchStr = searchStr.trim();
+	    searchStr = searchStr.replace(" ", "+");
+	    console.log("string requested before trim and replace is " + req.query.value);
+	    console.log("string requested after trim and replace is " + searchStr);
+
 	    var token = body.access_token;
 	    var options = {
-	      url: 'https://api.spotify.com/v1/search?q=' + req.query.value + '&type=artist&limit=1',
+	      url: 'https://api.spotify.com/v1/search?q=' + searchStr + '&type=artist&limit=1',
 	      headers: {
 	        'Authorization': 'Bearer ' + token
 	      },
@@ -54,9 +60,15 @@ app.get('/search', function(req, res){
 	    };
 	    request.get(options, function(error, response, body) {
 	    	//all it does now is give the link to the band we want. Can't handle multi word strings yet (need to have plus signs) and will add error handling.
-	    	uri = body.artists.items[0].id;
-	    	console.log(uri);
-	    	res.send(uri);
+	    	if (typeof body.artists.items[0] != "undefined") {
+		    	console.log(body.artists.items[0] + "\n")
+		    	artID = body.artists.items[0].id;
+		    	console.log(artID);
+		    	res.send(artID);
+	    	}
+	    	else {
+	    		res.send("failed")
+	    	}
 	    });
 	  }
 	});

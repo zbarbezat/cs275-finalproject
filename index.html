@@ -21,8 +21,14 @@
 			
 			success: function(msg) {
 				//alert("worked")
+				if (msg != "failed"){
 				frame = "<iframe src='https://open.spotify.com/embed/artist/" + msg + "' width='300' height='380' frameborder='0' allowtransparency='true' allow='encrypted-media'></iframe>";
 				document.getElementById("spotifyDiv").innerHTML=frame;
+				}
+				else {
+					document.getElementById("spotifyDiv").innerHTML= "Sorry, could not find the searched artist";
+				}
+
 
 			},
 
