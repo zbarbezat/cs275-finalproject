@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="background-color:#111010;">
 <head>
 	<title>Spotify Web App</title>
 	<!-- JQuery CDN -->
@@ -22,11 +22,15 @@
 			success: function(msg) {
 				//alert("worked")
 				if (msg != "failed"){
-				frame = "<iframe src='https://open.spotify.com/embed/artist/" + msg + "' width='300' height='380' frameborder='0' allowtransparency='true' allow='encrypted-media'></iframe>";
-				document.getElementById("spotifyDiv").innerHTML=frame;
+				playFrame = "<iframe src='https://open.spotify.com/embed/artist/" + msg + "' width='500' height='420' frameborder='0' allowtransparency='true' allow='encrypted-media'></iframe>";
+
+				followFrame = "<iframe src='https://open.spotify.com/follow/1/?uri=spotify:artist:" + msg + "&size=detail&theme=dark' width='300' height='56' scrolling='no' frameborder='0' style='border:none; overflow:hidden;' allowtransparency='true'></iframe>";
+
+				document.getElementById("playDiv").innerHTML=playFrame;
+				document.getElementById("followDiv").innerHTML=followFrame;
 				}
 				else {
-					document.getElementById("spotifyDiv").innerHTML= "Sorry, could not find the searched artist";
+					document.getElementById("playDiv").innerHTML= "Sorry, could not find the searched artist";
 				}
 
 
@@ -39,17 +43,53 @@
 	}
 	</script>
 </head>
+<style>
+.button {
+    background-color: #1db954; /* Green */
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.textBox {
+    background-color: #ecebe8; /* Green */
+    border: none;
+    color: white;
+    padding: 10px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.submit {border-radius: 12px;}
+
+</style>
+
 <body>
-	<h1>Whatever we name this thing</h1>
+	<h1><font face = "verdana" color = "white" >Whatever we name this thing</h1>
 	<!-- Separating these two so that it's easier to style later -->
 	<div>
 		<form>
 			Type in an artist's name:
-			<input type="field" name="artistname" id="artist">
-			<input type="button" value="Submit" name="subbtn" onclick="idRequest()">
+			<input type="field"  class="textBox submit" name="artistname" id="artist">
+			<input type="button" class="button submit" value="Submit" name="subbtn" onclick="idRequest()">
 		</form>
 	</div>
 </body>
-<div id="spotifyDiv">	
+<br>
+<div id="followDiv">	
 </div>
+<br>
+<div id="playDiv">	
+</div>
+
 </html>
