@@ -9,7 +9,9 @@
 		function idRequest (){
 		//Here is the requeset to the server along with the zip code and key from the text boxes
         var URL = window.location.href;
+        console.log(URL);
         URL = URL + "/search";
+        console.log(URL);
 		$.ajax({
 			type: "GET",
 			url: URL,
