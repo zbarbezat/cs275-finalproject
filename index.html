@@ -44,17 +44,22 @@
 	</script>
 </head>
 <style>
+h1{
+    text-align: center; 
+    }
+
 .button {
     background-color: #1db954; /* Green */
     border: none;
     color: white;
-    padding: 10px;
+    padding: 10px 70px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+
 }
 .textBox {
     background-color: #ecebe8; /* Green */
@@ -69,27 +74,30 @@
     margin: 4px 2px;
     cursor: pointer;
 }
+.center {
+    margin: auto;
+    width: 10%;
+    padding: 10px;
+    }
 
 .submit {border-radius: 12px;}
 
 </style>
 
 <body>
-	<h1><font face = "verdana" color = "white" >Whatever we name this thing</h1>
-	<!-- Separating these two so that it's easier to style later -->
-	<div>
-		<form>
-			Type in an artist's name:
-			<input type="field"  class="textBox submit" name="artistname" id="artist">
-			<input type="button" class="button submit" value="Submit" name="subbtn" onclick="idRequest()">
-		</form>
-	</div>
-</body>
-<br>
+    <h1><font face = "verdana" color = "white">Your Favorite Artists</h1>
+        <!-- Separating these two so that it's easier to style later -->
+    <div class="center">
+            <form>
+                <input type="field"  class="textBox submit" name="artistname" id="artist" placeholder="Type in an artist's name"><br><br>
+                <input type="button" class="button submit" value="Submit" name="subbtn" onclick="idRequest()">
+            </form>
+    </div>
+
 <div id="followDiv">	
 </div>
 <br>
 <div id="playDiv">	
 </div>
-
+</body>
 </html>
