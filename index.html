@@ -8,7 +8,8 @@
 	<script type="text/javascript">
 		function idRequest (){
 		//Here is the requeset to the server along with the zip code and key from the text boxes
-		var URL = "http://ec2-54-89-155-14.compute-1.amazonaws.com:4200/search";
+        var URL = window.location.href;
+        URL = URL + "/search";
 		$.ajax({
 			type: "GET",
 			url: URL,

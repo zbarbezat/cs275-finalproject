@@ -74,7 +74,7 @@ app.get('/search', function(req, res){
 	});
 });
 
-app.listen(8080,function(){
+app.listen(4200,function(){
 	console.log('Server is listening :]');
 });
 // 
