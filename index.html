@@ -10,7 +10,7 @@
 		//Here is the requeset to the server along with the zip code and key from the text boxes
         var URL = window.location.href;
         console.log(URL);
-        URL = URL + "/search";
+        URL = URL + "search";
         console.log(URL);
 		$.ajax({
 			type: "GET",
@@ -40,6 +40,7 @@
 			},
 
 			error: function (xhr, ajaxOptions, thrownError) {
+            console.log(URL)
 			console.log("Call messed up");
 			}
 		});
