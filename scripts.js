@@ -5,21 +5,10 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-var mysql = require('mysql');
 
 var app = express();
 app.use(express.static("."));
 
-var con = mysql.createConnection({
-	host: "cs275project.c689xb3yjax8.us-east-1.rds.amazonaws.com",
-	user: "projectadmin",
-	password: "userlogin"
-});
-
-con.connect(function (err){
-	if (err) throw err;
-	console.log("Connected to database!");
-});
 /**
 Sorry for how nasty this all looks, pretty much it has to make the api calls on the server side 
 or else it runs into a cors error. I'm not sure if this is the cleanest way to do but it was the 
@@ -35,7 +24,7 @@ var client_secret = 'a022baaccb3640a4a8ce3c5f04d229e9'; // our secret
 
 //For the default site with no requests
 app.get('/', function(req, res){
-	res.sendFile(path.join(__dirname, 'indexServer.html'));
+	res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/search', function(req, res){
@@ -55,9 +44,15 @@ app.get('/search', function(req, res){
 	  if (!error && response.statusCode === 200) {
 
 	    // use the access token to access the Spotify Web API
+	    searchStr = req.query.value;
+	    searchStr = searchStr.trim();
+	    searchStr = searchStr.replace(" ", "+");
+	    console.log("string requested before trim and replace is " + req.query.value);
+	    console.log("string requested after trim and replace is " + searchStr);
+
 	    var token = body.access_token;
 	    var options = {
-	      url: 'https://api.spotify.com/v1/search?q=' + req.query.value + '&type=artist&limit=1',
+	      url: 'https://api.spotify.com/v1/search?q=' + searchStr + '&type=artist&limit=1',
 	      headers: {
 	        'Authorization': 'Bearer ' + token
 	      },
@@ -65,9 +60,15 @@ app.get('/search', function(req, res){
 	    };
 	    request.get(options, function(error, response, body) {
 	    	//all it does now is give the link to the band we want. Can't handle multi word strings yet (need to have plus signs) and will add error handling.
-	    	uri = body.artists.items[0].uri;
-	    	console.log(uri);
-	    	res.send(uri);
+	    	if (typeof body.artists.items[0] != "undefined") {
+		    	console.log(body.artists.items[0] + "\n")
+		    	artID = body.artists.items[0].id;
+		    	console.log(artID);
+		    	res.send(artID);
+	    	}
+	    	else {
+	    		res.send("failed")
+	    	}
 	    });
 	  }
 	});
