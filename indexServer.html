@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html style="background-color:#111010;">
+<head>
+	<title>Spotify Web App</title>
+	<!-- JQuery CDN -->
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+	<script type="text/javascript">
+		function idRequest (){
+		//Here is the requeset to the server along with the zip code and key from the text boxes
+		var URL = "http://http://ec2-54-89-155-14.compute-1.amazonaws.com:4200//search";
+		$.ajax({
+			type: "GET",
+			url: URL,
+			//contentType: "application/json; charset=utf-8",
+			data: 
+			{
+				value: document.getElementById("artist").value  
+			},
+			dataType: "text",
+			
+			success: function(msg) {
+				//alert("worked")
+				if (msg != "failed"){
+				playFrame = "<iframe src='https://open.spotify.com/embed/artist/" + msg + "' width='500' height='420' frameborder='0' allowtransparency='true' allow='encrypted-media'></iframe>";
+
+				followFrame = "<iframe src='https://open.spotify.com/follow/1/?uri=spotify:artist:" + msg + "&size=detail&theme=dark' width='300' height='56' scrolling='no' frameborder='0' style='border:none; overflow:hidden;' allowtransparency='true'></iframe>";
+
+				document.getElementById("playDiv").innerHTML=playFrame;
+				document.getElementById("followDiv").innerHTML=followFrame;
+				}
+				else {
+					document.getElementById("playDiv").innerHTML= "Sorry, could not find the searched artist";
+				}
+
+
+			},
+
+			error: function (xhr, ajaxOptions, thrownError) {
+			console.log("Call messed up");
+			}
+		});
+	}
+	</script>
+</head>
+<style>
+h1{
+    text-align: center; 
+    }
+
+.button {
+    background-color: #1db954; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 70px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+
+}
+.textBox {
+    background-color: #ecebe8; /* Green */
+    border: none;
+    color: white;
+    padding: 10px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.center {
+    margin: auto;
+    width: 10%;
+    padding: 10px;
+    }
+
+.submit {border-radius: 12px;}
+
+</style>
+
+<body>
+    <h1><font face = "verdana" color = "white">Your Favorite Artists</h1>
+        <!-- Separating these two so that it's easier to style later -->
+    <div class="center">
+            <form>
+                <input type="field"  class="textBox submit" name="artistname" id="artist" placeholder="Type in an artist's name"><br><br>
+                <input type="button" class="button submit" value="Submit" name="subbtn" onclick="idRequest()">
+            </form>
+    </div>
+
+<div id="followDiv">	
+</div>
+<br>
+<div id="playDiv">	
+</div>
+<br>
+<div id="prevCallsDiv">
+</div>
+</body>
+</html>
