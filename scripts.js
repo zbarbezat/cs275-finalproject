@@ -31,12 +31,13 @@ var request = require('request'); // "Request" library
 var client_id = '6ba0d68acbb14b11bcc1001e3c4b5dd7'; // our client id
 var client_secret = 'a022baaccb3640a4a8ce3c5f04d229e9'; // our secret
 
-
 //For the default site with no requests
 app.get('/', function(req, res){
 	res.render(path.join(__dirname, 'index.html'));
+	var datetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+	console.log(datetime);
 	//QUERY = 
-	con.query()
+	//con.query()
 });
 
 app.get('/search', function(req, res){
