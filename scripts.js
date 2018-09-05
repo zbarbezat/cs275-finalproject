@@ -15,17 +15,13 @@ var con = mysql.createConnection({
 	user: "root",
 	port: "3306"
 });
-con.connect(function(err){
-	if ( err ) throw err;
-	console.log("Connected!")
-});
+
 /**
 Sorry for how nasty this all looks, pretty much it has to make the api calls on the server side 
 or else it runs into a cors error. I'm not sure if this is the cleanest way to do but it was the 
 only attempt I got to spit out the correct uri. Will not be offended if you guys want to go about
 this differently.
  */
-
 var request = require('request'); // "Request" library
 
 var client_id = '6ba0d68acbb14b11bcc1001e3c4b5dd7'; // our client id
@@ -35,11 +31,11 @@ var client_secret = 'a022baaccb3640a4a8ce3c5f04d229e9'; // our secret
 app.get('/', function(req, res){
 	res.render(path.join(__dirname, 'index.html'));
 });
-
-app.get('/index', function(req, res){
-	console.log("test");
-});
 app.get('/search', function(req, res){
+	con.connect(function(err){
+		if ( err ) throw err;
+		console.log("Connected!")
+	});
 	// your application requests authorization
 	var fullUrl = req.originalUrl;
 	var datetime = req.query.date;
@@ -110,6 +106,18 @@ app.get('/events', function(req, res){
 
 	request.get(options, function(error, response, body) {
 		res.send(body);
+	});
+});
+
+app.get('/prevEvents', function(req, res){
+	selectQuery = "select * from prevReqs order by date desc limit 5";
+	con.query(insertQuery, function (error, results, fields){
+		if (error) console.log(error);
+		res.send(results);
+	});
+	con.end(function(err){
+		if (err) console.log(err);
+		console.log("Connection closed");
 	});
 });
 

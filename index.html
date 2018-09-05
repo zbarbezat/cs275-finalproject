@@ -37,10 +37,7 @@
 				else {
 					document.getElementById("playDiv").innerHTML= "Sorry, could not find the searched artist";
 				}
-
-
 			},
-
 			error: function (xhr, ajaxOptions, thrownError) {
 			console.log("Call messed up");
 			}
@@ -97,13 +94,29 @@
                     table.append(moredumbJquery);
 
                     table.appendTo("#stage");
+                    prevRequests();
                 },
-
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert("Oop");
                 }
             });
-    	}
+    }
+    function prevRequests() {
+        $('#prevReqs').html("<h3>Previous Requests</h2></br>");
+        var URLhold = window.location.href + "prevEvents";
+        $.ajax({
+            type: "GET",
+            url: URLhold,
+            success: function(msg) {
+                console.log(msg);
+                var table = $('<table>').addClass('t');
+                table.appendTo("#prevReqs");
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                    alert("MySQL select failed.");
+            }
+        });
+    }
 	</script>
 </head>
 <style>
@@ -174,6 +187,8 @@ h1{
 <div id="playDiv">	
 </div>
 <div id="stage">
+</div>
+<div id="prevReqs">
 </div>
 </body>
 </html>
