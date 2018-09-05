@@ -109,23 +109,23 @@
             url: URLhold,
             success: function(msg) {
                 console.log(msg);
-                var table = $('<table>').addClass('t');
-                var dumbJquery = $('<thead>').append(
+                var table1 = $('<table>').addClass('t');
+                var dumbJquery1 = $('<thead>').append(
                     $('<tr>').append(
                         $('<th>').text("Date"),
                         $('<th>').text("Artist Name"),
                     )
                 ).appendTo(table);
-                var moredumbJquery = $('<tbody>');
+                var moredumbJquery1 = $('<tbody>');
                 for (i in msg){
                     var date = i.date;
                     var name = i.artistName;
-                    var row = $('tr>').append(
+                    var row1 = $('tr>').append(
                         $('<td>').text(date),
-                        $('<td>').text(name)).appendTo(moredumbJquery);
+                        $('<td>').text(name)).appendTo(moredumbJquery1);
                 }
-                table.append(moredumbJquery);
-                table.appendTo("#prevReqs");
+                table1.append(moredumbJquery1);
+                table1.appendTo("#prevReqs");
             },
             error: function (xhr, ajaxOptions, thrownError) {
                     alert("MySQL select failed.");
