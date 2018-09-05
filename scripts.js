@@ -46,6 +46,9 @@ app.get('/search', function(req, res){
 	var artistName = req.query.value;
 	console.log(fullUrl);
 	insertQuery = "INSERT INTO PrevReqs (date, artistName, uriCall) VALUES (http://ec2-54-89-155-14.compute-1.amazonaws.com:4200/"+ fullUrl + ", " + datetime + ", " + artistName + ")";
+	con.query(insertQuery, function (error, results, fields){
+		if (err) console.log(err);
+	});
 	var authOptions = {
 	  url: 'https://accounts.spotify.com/api/token',
 	  headers: {
