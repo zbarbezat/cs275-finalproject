@@ -118,8 +118,8 @@
                 ).appendTo(table);
                 var moredumbJquery = $('<tbody>');
                 for (i in msg){
-                    var date = JSON.stringify(msg.RowDataPacket[0]);
-                    var name = JSON.stringify(msg.RowDataPacket[1]);
+                    var date = i.date;
+                    var name = i.artistName;
                     var row = $('tr>').append(
                         $('<td>').text(date),
                         $('<td>').text(name)).appendTo(moredumbJquery);
