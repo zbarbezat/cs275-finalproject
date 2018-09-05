@@ -103,13 +103,28 @@
     }
     function prevRequests() {
         $('#prevReqs').html("<h3>Previous Requests</h2></br>");
-        var URLhold = window.location.href + "prevEvents";
+        var URLhold = window.location.href + "prevRequests";
         $.ajax({
             type: "GET",
             url: URLhold,
             success: function(msg) {
                 console.log(msg);
                 var table = $('<table>').addClass('t');
+                var dumbJquery = $('<thead>').append(
+                    $('<tr>').append(
+                        $('<th>').text("Date"),
+                        $('<th>').text("Artist Name"),
+                    )
+                ).appendTo(table);
+                var moredumbJquery = $('<tbody>');
+                for (i in msg){
+                    var date = JSON.stringify(msg.RowDataPacket[0]);
+                    var name = JSON.stringify(msg.RowDataPacket[1]);
+                    var row = $('tr>').append(
+                        $('<td>').text(date),
+                        $('<td>').text(name)).appendTo(moredumbJquery);
+                }
+                table.append(moredumbJquery);
                 table.appendTo("#prevReqs");
             },
             error: function (xhr, ajaxOptions, thrownError) {
