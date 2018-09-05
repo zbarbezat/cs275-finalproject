@@ -111,9 +111,10 @@ app.get('/events', function(req, res){
 
 app.get('/prevEvents', function(req, res){
 	selectQuery = "select * from prevReqs order by date desc limit 5";
-	con.query(insertQuery, function (error, results, fields){
+	con.query(insertQuery, function (error, rows){
 		if (error) console.log(error);
-		res.send(results);
+		res.json(rows);
+		console.log(rows);
 	});
 	/*con.end(function(err){
 		if (err) console.log(err);
