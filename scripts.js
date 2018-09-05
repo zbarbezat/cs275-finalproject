@@ -11,9 +11,9 @@ var app = express();
 app.use(express.static("."));
 
 var con = mysql.createConnection({
-	host = "cs275project.c689xb3yjax8.us-east-1.rds.amazonaws.com",
-	user = "root",
-	port = "3306"
+	host: "cs275project.c689xb3yjax8.us-east-1.rds.amazonaws.com",
+	user: "root",
+	port: "3306"
 });
 con.connect(function(err){
 	if ( err ) throw err;
