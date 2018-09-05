@@ -26,16 +26,16 @@ var request = require('request'); // "Request" library
 
 var client_id = '6ba0d68acbb14b11bcc1001e3c4b5dd7'; // our client id
 var client_secret = 'a022baaccb3640a4a8ce3c5f04d229e9'; // our secret
-
+con.connect(function(err){
+	if ( err ) throw err;
+	console.log("Connected!")
+});
 //For the default site with no requests
 app.get('/', function(req, res){
 	res.render(path.join(__dirname, 'index.html'));
 });
 app.get('/search', function(req, res){
-	con.connect(function(err){
-		if ( err ) throw err;
-		console.log("Connected!")
-	});
+
 	// your application requests authorization
 	var fullUrl = req.originalUrl;
 	var datetime = req.query.date;
