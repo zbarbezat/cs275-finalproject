@@ -39,7 +39,8 @@ app.get('/', function(req, res){
 
 app.get('/search', function(req, res){
 	// your application requests authorization
-	console.log(req.originalUrl);
+	var fullUrl = req.protocol + ':4200//' + req.get('host') + req.originalUrl;
+	console.log(fullUrl);
 	var authOptions = {
 	  url: 'https://accounts.spotify.com/api/token',
 	  headers: {
