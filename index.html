@@ -31,7 +31,8 @@
 				followFrame = "<iframe src='https://open.spotify.com/follow/1/?uri=spotify:artist:" + msg + "&size=detail&theme=dark' width='300' height='56' scrolling='no' frameborder='0' style='border:none; overflow:hidden;' allowtransparency='true'></iframe>";
 
 				document.getElementById("playDiv").innerHTML=playFrame;
-				document.getElementById("followDiv").innerHTML=followFrame;
+                document.getElementById("followDiv").innerHTML=followFrame;
+                getEventData();
 				}
 				else {
 					document.getElementById("playDiv").innerHTML= "Sorry, could not find the searched artist";
@@ -49,9 +50,11 @@
 	function getEventData() {
         $("#stage").html("");
         $('#stage').html("<h2>Upcoming Events</h2></br>");
+        var URLhold = window.location.href + "events";
+        console.log(URLhold);
         $.ajax({
                 type: "GET",
-                url: 'http://localhost:8080/events',
+                url: URLhold,
                 data: 
                 {
                     value: document.getElementById("artist").value  
@@ -158,6 +161,8 @@ h1{
 </div>
 <br>
 <div id="playDiv">	
+</div>
+<div id="stage">
 </div>
 </body>
 </html>
