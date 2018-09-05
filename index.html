@@ -112,7 +112,7 @@
             success: function(msg) {
                 console.log(msg);
                 for (i in msg){
-                    document.getElementById("prevReqs").innerHTML += "i";
+                    document.getElementById("prevReqs").innerHTML += i;
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
