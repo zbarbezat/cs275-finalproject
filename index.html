@@ -89,12 +89,14 @@
                             $('<td>').text(address),
                             $('<td>').text(date),
                             $('<td>').text(info)).appendTo(moredumbJquery);
+                        if (json.events.event[i+1]==null){
+                            prevRequests();
+                        }
                     }
 
                     table.append(moredumbJquery);
 
                     table.appendTo("#stage");
-                    prevRequests();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert("Oop");
