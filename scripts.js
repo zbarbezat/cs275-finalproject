@@ -115,10 +115,10 @@ app.get('/prevEvents', function(req, res){
 		if (error) console.log(error);
 		res.send(results);
 	});
-	con.end(function(err){
+	/*con.end(function(err){
 		if (err) console.log(err);
 		console.log("Connection closed");
-	});
+	});*/
 });
 
 app.listen(4200,function(){
