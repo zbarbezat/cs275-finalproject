@@ -34,12 +34,14 @@ var client_secret = 'a022baaccb3640a4a8ce3c5f04d229e9'; // our secret
 
 //For the default site with no requests
 app.get('/', function(req, res){
-	res.sendFile(path.join(__dirname, 'index.html'));
+	res.render(path.join(__dirname, 'index.html'));
+	//QUERY = 
+	con.query()
 });
 
 app.get('/search', function(req, res){
 	// your application requests authorization
-	var fullUrl = req.protocol + ':4200//' + req.get('host') + req.originalUrl;
+	var fullUrl = req.originalUrl;
 	console.log(fullUrl);
 	var authOptions = {
 	  url: 'https://accounts.spotify.com/api/token',
