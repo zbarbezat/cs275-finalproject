@@ -46,7 +46,7 @@ app.get('/search', function(req, res){
 	var artistName = req.query.value;
 	console.log(fullUrl);
 	insertQuery = "INSERT INTO PrevReqs (date, artistName, uriCall)\n";
-	insertQuery += "VALUES (http://ec2-54-89-155-14.compute-1.amazonaws.com:4200/"+ fullUrl + ", " + datetime + ", " + artistName + ")";
+	insertQuery += "VALUES (\"ec2-54-89-155-14.compute-1.amazonaws.com:4200/"+ fullUrl + "\", \"" + datetime + "\", \"" + artistName + "\")";
 	con.query(insertQuery, function (error, results, fields){
 		if (error) console.log(error);
 	});
