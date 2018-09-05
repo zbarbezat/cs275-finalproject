@@ -7,19 +7,15 @@
 
 	<script type="text/javascript">
 		function idRequest (){
-        var datetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
-	    console.log(datetime);
 		//Here is the requeset to the server along with the zip code and key from the text boxes
-        var URL = window.location.href;
-        URL = URL + "search";
+		var URL = "http://localhost:8080/search";
 		$.ajax({
 			type: "GET",
 			url: URL,
 			//contentType: "application/json; charset=utf-8",
 			data: 
 			{
-                value: document.getElementById("artist").value,
-                date: datetime
+				value: document.getElementById("artist").value  
 			},
 			dataType: "text",
 			
@@ -45,67 +41,13 @@
 			}
 		});
 	}
-		
-	function getEventData() {
-        $("#stage").html("");
-        $('#stage').html("<h2>Upcoming Events</h2></br>");
-        $.ajax({
-                type: "GET",
-                url: 'http://localhost:8080/events',
-                data: 
-                {
-                    value: document.getElementById("artist").value  
-                },
-                dataType: "html",
-                success: function(msg) {
-                    console.log(msg);
-
-                    json = JSON.parse(msg);
-
-                    console.log(json);
-
-                    var table = $('<table>').addClass('t');
-
-                    var table = $('<table>').addClass('t');
-                    var dumbJquery = $('<thead>').append(
-                        $('<tr>').append(
-                            $('<th>').text("Venue Name"),
-                            $('<th>').text("Address"),
-                            $('<th>').text("Date + Start Time"),
-                            $('<th>').text("More Information")
-                        )
-                    ).appendTo(table);
-
-                    var moredumbJquery = $('<tbody>');
-
-                    for (i = 0; i < json.events.event.length; i++) {
-                        var venue = JSON.stringify(json.events.event[i]['venue_name']);
-                        var address = JSON.stringify(json.events.event[i]['venue_address']);
-                        var date = JSON.stringify(json.events.event[i]['start_time']);
-                        var info = JSON.stringify(json.events.event[i]['url']);
-                        
-                        var row = $('<tr>').append(
-                            $('<td>').text(venue),
-                            $('<td>').text(address),
-                            $('<td>').text(date),
-                            $('<td>').text(info)).appendTo(moredumbJquery);
-                    }
-
-                    table.append(moredumbJquery);
-
-                    table.appendTo("#stage");
-                },
-
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert("Oop");
-                }
-            });
-    	}
 	</script>
 </head>
 <style>
 h1{
     text-align: center; 
+    font-family: verdana;
+    color: white;
     }
 
 .button {
@@ -141,11 +83,20 @@ h1{
     }
 
 .submit {border-radius: 12px;}
-
+#followDiv{
+    margin: auto;
+    width: 10%;
+    padding: 10px;
+    }
+#playDiv{
+    margin: auto;
+    width: 30%;
+    padding: 10px;
+    }
 </style>
 
 <body>
-    <h1><font face = "verdana" color = "white">Your Favorite Artists</h1>
+    <h1>Your Favorite Artists</h1>
         <!-- Separating these two so that it's easier to style later -->
     <div class="center">
             <form>
