@@ -110,7 +110,7 @@ app.get('/events', function(req, res){
 });
 
 app.get('/prevEvents', function(req, res){
-	selectQuery = "select * from PrevReqs";
+	selectQuery = "select * from Project.PrevReqs";
 	con.query(insertQuery, function (error, rows){
 		if (error) console.log(error);
 		res.json(rows);
