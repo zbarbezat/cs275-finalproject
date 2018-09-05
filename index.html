@@ -119,13 +119,13 @@
                     )
                 ).appendTo(table);
                 var moredumbJquery1 = $('<tbody>');
-                for (i in msg){
+                Object.keys(msg).forEach(function(key){
                     var date = i.date;
                     var name = i.artistName;
                     var row1 = $('tr>').append(
                         $('<td>').text(date),
                         $('<td>').text(name)).appendTo(moredumbJquery1);
-                }
+                })
                 table1.append(moredumbJquery1);
                 table1.appendTo("#prevReqs");
             },
