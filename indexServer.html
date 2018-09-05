@@ -8,7 +8,7 @@
 	<script type="text/javascript">
 		function idRequest (){
 		//Here is the requeset to the server along with the zip code and key from the text boxes
-		var URL = "http://http://ec2-54-89-155-14.compute-1.amazonaws.com:4200//search";
+		var URL = "http://localhost:8080/search";
 		$.ajax({
 			type: "GET",
 			url: URL,
@@ -27,7 +27,8 @@
 				followFrame = "<iframe src='https://open.spotify.com/follow/1/?uri=spotify:artist:" + msg + "&size=detail&theme=dark' width='300' height='56' scrolling='no' frameborder='0' style='border:none; overflow:hidden;' allowtransparency='true'></iframe>";
 
 				document.getElementById("playDiv").innerHTML=playFrame;
-				document.getElementById("followDiv").innerHTML=followFrame;
+                document.getElementById("followDiv").innerHTML=followFrame;
+                getEventData();
 				}
 				else {
 					document.getElementById("playDiv").innerHTML= "Sorry, could not find the searched artist";
@@ -41,11 +42,71 @@
 			}
 		});
 	}
+		
+	function getEventData() {
+        $("#stage").html("");
+        $('#stage').html("<h2>Upcoming Events</h2></br>");
+        var URLhold = window.location.href + "events";
+        console.log(URLhold);
+        $.ajax({
+                type: "GET",
+                url: URLhold,
+                data: 
+                {
+                    value: document.getElementById("artist").value  
+                },
+                dataType: "html",
+                success: function(msg) {
+                    console.log(msg);
+
+                    json = JSON.parse(msg);
+
+                    console.log(json);
+
+                    var table = $('<table>').addClass('t');
+
+                    var table = $('<table>').addClass('t');
+                    var dumbJquery = $('<thead>').append(
+                        $('<tr>').append(
+                            $('<th>').text("Venue Name"),
+                            $('<th>').text("Address"),
+                            $('<th>').text("Date + Start Time"),
+                            $('<th>').text("More Information")
+                        )
+                    ).appendTo(table);
+
+                    var moredumbJquery = $('<tbody>');
+
+                    for (i = 0; i < json.events.event.length; i++) {
+                        var venue = JSON.stringify(json.events.event[i]['venue_name']);
+                        var address = JSON.stringify(json.events.event[i]['venue_address']);
+                        var date = JSON.stringify(json.events.event[i]['start_time']);
+                        var info = JSON.stringify(json.events.event[i]['url']);
+                        
+                        var row = $('<tr>').append(
+                            $('<td>').text(venue),
+                            $('<td>').text(address),
+                            $('<td>').text(date),
+                            $('<td>').text(info)).appendTo(moredumbJquery);
+                    }
+
+                    table.append(moredumbJquery);
+
+                    table.appendTo("#stage");
+                },
+
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert("Oop");
+                }
+            });
+    	}
 	</script>
 </head>
 <style>
 h1{
     text-align: center; 
+    font-family: verdana;
+    color: white;
     }
 
 .button {
@@ -81,11 +142,20 @@ h1{
     }
 
 .submit {border-radius: 12px;}
-
+#followDiv{
+    margin: auto;
+    width: 10%;
+    padding: 10px;
+    }
+#playDiv{
+    margin: auto;
+    width: 30%;
+    padding: 10px;
+    }
 </style>
 
 <body>
-    <h1><font face = "verdana" color = "white">Your Favorite Artists</h1>
+    <h1>Your Favorite Artists</h1>
         <!-- Separating these two so that it's easier to style later -->
     <div class="center">
             <form>
@@ -99,8 +169,7 @@ h1{
 <br>
 <div id="playDiv">	
 </div>
-<br>
-<div id="prevCallsDiv">
+<div id="stage">
 </div>
 </body>
 </html>
