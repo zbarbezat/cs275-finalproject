@@ -36,10 +36,16 @@ app.get('/', function(req, res){
 	res.render(path.join(__dirname, 'index.html'));
 });
 
+app.get('/index', function(req, res){
+	console.log("test");
+});
 app.get('/search', function(req, res){
 	// your application requests authorization
 	var fullUrl = req.originalUrl;
+	var datetime = req.query.date;
+	var artistName = req.query.value;
 	console.log(fullUrl);
+	insertQuery = "INSERT INTO PrevReqs (date, artistName, uriCall) VALUES (http://ec2-54-89-155-14.compute-1.amazonaws.com:4200/"+ fullUrl + ", " + datetime + ", " + artistName + ")";
 	var authOptions = {
 	  url: 'https://accounts.spotify.com/api/token',
 	  headers: {
