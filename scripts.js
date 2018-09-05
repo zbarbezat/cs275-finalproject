@@ -33,9 +33,10 @@ var client_secret = 'a022baaccb3640a4a8ce3c5f04d229e9'; // our secret
 
 //For the default site with no requests
 app.get('/', function(req, res){
-	res.render(path.join(__dirname, 'index.html'));
 	var datetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
 	console.log(datetime);
+	res.render(path.join(__dirname, 'index.html'));
+
 	//QUERY = 
 	//con.query()
 });
