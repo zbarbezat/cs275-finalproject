@@ -112,7 +112,10 @@
             success: function(msg) {
                 console.log(msg);
                 for (i in msg){
-                    document.getElementById("prevReqs").innerHTML += msg[i];
+                    document.getElementById("prevReqs").innerHTML += msg[i].date;
+                    document.getElementById("prevReqs").innerHTML += msg[i].artistName;
+                    document.getElementById("prevReqs").innerHTML += "\n";
+
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
