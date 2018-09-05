@@ -111,23 +111,9 @@
             url: URLhold,
             success: function(msg) {
                 console.log(msg);
-                var table1 = $('<table>').addClass('t');
-                var dumbJquery1 = $('<thead>').append(
-                    $('<tr>').append(
-                        $('<th>').text("Date"),
-                        $('<th>').text("Artist Name"),
-                    )
-                ).appendTo(table1);
-                var moredumbJquery1 = $('<tbody>');
                 for (i in msg){
-                    var date = msg[i].date;
-                    var name = msg[i].artistName;
-                    var row1 = $('tr>').append(
-                        $('<td>').text(date),
-                        $('<td>').text(name)).appendTo(moredumbJquery1);
+                    document.getElementById("prevReqs").innerHTML += "i";
                 }
-                table1.append(moredumbJquery1);
-                table1.appendTo("#prevReqs");
             },
             error: function (xhr, ajaxOptions, thrownError) {
                     alert("MySQL select failed.");
