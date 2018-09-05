@@ -45,6 +45,62 @@
 			}
 		});
 	}
+		
+	function getEventData() {
+        $("#stage").html("");
+        $('#stage').html("<h2>Upcoming Events</h2></br>");
+        $.ajax({
+                type: "GET",
+                url: 'http://localhost:8080/events',
+                data: 
+                {
+                    value: document.getElementById("artist").value  
+                },
+                dataType: "html",
+                success: function(msg) {
+                    console.log(msg);
+
+                    json = JSON.parse(msg);
+
+                    console.log(json);
+
+                    var table = $('<table>').addClass('t');
+
+                    var table = $('<table>').addClass('t');
+                    var dumbJquery = $('<thead>').append(
+                        $('<tr>').append(
+                            $('<th>').text("Venue Name"),
+                            $('<th>').text("Address"),
+                            $('<th>').text("Date + Start Time"),
+                            $('<th>').text("More Information")
+                        )
+                    ).appendTo(table);
+
+                    var moredumbJquery = $('<tbody>');
+
+                    for (i = 0; i < json.events.event.length; i++) {
+                        var venue = JSON.stringify(json.events.event[i]['venue_name']);
+                        var address = JSON.stringify(json.events.event[i]['venue_address']);
+                        var date = JSON.stringify(json.events.event[i]['start_time']);
+                        var info = JSON.stringify(json.events.event[i]['url']);
+                        
+                        var row = $('<tr>').append(
+                            $('<td>').text(venue),
+                            $('<td>').text(address),
+                            $('<td>').text(date),
+                            $('<td>').text(info)).appendTo(moredumbJquery);
+                    }
+
+                    table.append(moredumbJquery);
+
+                    table.appendTo("#stage");
+                },
+
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert("Oop");
+                }
+            });
+    	}
 	</script>
 </head>
 <style>

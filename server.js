@@ -74,6 +74,28 @@ app.get('/search', function(req, res){
 	});
 });
 
+app.get('/events', function(req, res){
+	searchStr = req.query.value;
+	searchStr = searchStr.trim();
+	searchStr = searchStr.replace(" ", "+");
+
+	var URL = 'http://api.eventful.com/json/events/search?keywords=' + searchStr + '&app_key=RW4q3ZLnntsxvMWw';
+
+	const options = {
+  		method: 'GET',
+  		uri: URL,
+  		json: true
+	};
+
+	request.get(options, function(error, response, body) {
+		res.send(body);
+	});
+});
+
+app.listen(8080,function(){
+	console.log('Server is listening :]');
+});
+
 app.listen(8080,function(){
 	console.log('Server is listening :]');
 });
