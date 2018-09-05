@@ -79,7 +79,7 @@ app.get('/events', function(req, res){
 	searchStr = searchStr.trim();
 	searchStr = searchStr.replace(" ", "+");
 
-	var URL = 'http://api.eventful.com/json/events/search?keywords=' + searchStr + '&app_key=RW4q3ZLnntsxvMWw';
+	var URL = 'http://api.eventful.com/json/events/search?keywords=' + searchStr + '&page_size=250&app_key=RW4q3ZLnntsxvMWw';
 
 	const options = {
   		method: 'GET',
