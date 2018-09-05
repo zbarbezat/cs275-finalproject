@@ -7,6 +7,8 @@
 
 	<script type="text/javascript">
 		function idRequest (){
+        var datetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+	    console.log(datetime);
 		//Here is the requeset to the server along with the zip code and key from the text boxes
         var URL = window.location.href;
         URL = URL + "search";
