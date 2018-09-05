@@ -5,10 +5,20 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
+var mysql = require('mysql');
 
 var app = express();
 app.use(express.static("."));
 
+var con = mysql.createConnection({
+	host = "cs275project.c689xb3yjax8.us-east-1.rds.amazonaws.com",
+	user = "root",
+	port = "3306"
+});
+con.connect(function(err){
+	if ( err ) throw err;
+	console.log("Connected!")
+});
 /**
 Sorry for how nasty this all looks, pretty much it has to make the api calls on the server side 
 or else it runs into a cors error. I'm not sure if this is the cleanest way to do but it was the 
